@@ -28,6 +28,10 @@ task :prepdoc do
   doc_files.each do |file|
     system "svn propset svn:mime-type 'text/html' #{file}"
   end
+  css_files = FileList.new('doc/**/*.css')
+  css_files.each do |file|
+    system "svn propset svn:mime-type 'text/css' #{file}"
+  end
 end
 
 
