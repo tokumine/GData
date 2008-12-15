@@ -48,6 +48,7 @@ spec = Gem::Specification.new do |s|
   s.email = 'jfisher@youtube.com'
   s.homepage = 'http://code.google.com/p/gdata-ruby-util'
   s.summary = "Google Data APIs Ruby Utility Library"
+  s.rubyforge_project = 'gdata'
   s.name = 'gdata'
   s.version = '0.0.1'
   s.requirements << 'none'
