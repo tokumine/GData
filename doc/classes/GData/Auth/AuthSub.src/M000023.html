@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>upgrade (GData::Auth::AuthSub)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 101</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upgrade</span>
+        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">SESSION_HANDLER</span>)
+        <span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-identifier">service</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status_code</span> <span class="ruby-operator">!=</span> <span class="ruby-value">200</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span><span class="ruby-operator">::</span><span class="ruby-constant">AuthorizationError</span>, 
+            <span class="ruby-node">&quot;#{response.status_code} : #{response.body}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Token=(.*)/</span>,<span class="ruby-value">1</span>]
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@token</span>
+        
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -23,6 +23,13 @@ task :test do
   ruby "test/ts_gdata.rb"
 end
 
+task :prepdoc do
+  doc_files = FileList.new('doc/**/*.html')
+  doc_files.each do |file|
+    system "svn propset svn:mime-type 'text/html' #{file}"
+  end
+end
+
 
 Rake::RDocTask.new do |rd|
   rd.main = 'README'

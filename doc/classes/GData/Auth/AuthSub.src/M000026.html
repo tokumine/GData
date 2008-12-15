@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_url (GData::Auth::AuthSub)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 152</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_url</span>(<span class="ruby-identifier">next_url</span>, <span class="ruby-identifier">scope</span>, <span class="ruby-identifier">secure</span> = <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">session</span> = <span class="ruby-keyword kw">true</span>, 
+          <span class="ruby-identifier">domain</span> = <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">next_url</span> = <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">next_url</span>)
+        <span class="ruby-identifier">scope</span> = <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">scope</span>)
+        <span class="ruby-identifier">secure</span> = <span class="ruby-identifier">secure</span> <span class="ruby-value">? </span><span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">session</span> = <span class="ruby-identifier">session</span> <span class="ruby-value">? </span><span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">body</span> = <span class="ruby-node">&quot;next=#{next_url}&amp;scope=#{scope}&amp;session=#{session}&quot;</span> <span class="ruby-operator">+</span>
+               <span class="ruby-node">&quot;&amp;secure=#{secure}&quot;</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">domain</span>
+          <span class="ruby-identifier">domain</span> = <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">domain</span>)
+          <span class="ruby-identifier">body</span> = <span class="ruby-node">&quot;#{body}&amp;hd=#{domain}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;#{REQUEST_HANDLER}?#{body}&quot;</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

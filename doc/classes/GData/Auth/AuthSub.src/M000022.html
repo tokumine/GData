@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>sign_request! (GData::Auth::AuthSub)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 83</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-identifier">header</span> = <span class="ruby-node">&quot;AuthSub token=\&quot;#{@token}\&quot;&quot;</span>
+        
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@private_key</span>
+          <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+          <span class="ruby-identifier">nonce</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">BN</span>.<span class="ruby-identifier">rand_range</span>(<span class="ruby-constant">BIG_INT_MAX</span>)
+          <span class="ruby-identifier">method</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>
+          <span class="ruby-identifier">data</span> = <span class="ruby-node">&quot;#{method} #{request.url} #{time} #{nonce}&quot;</span>
+          <span class="ruby-identifier">sig</span> = <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">sign</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">data</span>)
+          <span class="ruby-identifier">sig</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">sig</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\n/</span>, <span class="ruby-value str">''</span>)
+          <span class="ruby-identifier">header</span> = <span class="ruby-node">&quot;#{header} sigalg=\&quot;rsa-sha1\&quot; data=\&quot;#{data}\&quot;&quot;</span>
+          <span class="ruby-identifier">header</span> = <span class="ruby-node">&quot;#{header} sig=\&quot;#{sig}\&quot;&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">'Authorization'</span>] = <span class="ruby-identifier">header</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
