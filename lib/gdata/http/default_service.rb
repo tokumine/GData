@@ -47,7 +47,14 @@ module GData
           raise ArgumentError, "Unsupported HTTP method specified."
         end
         
-        req.body = request.body
+        case request.body
+        when String
+          req.body = request.body
+        when Hash
+          req.set_form_data(request.body)
+        else
+          req.body = request.body.to_s
+        end
         request.headers.each do |key, value|
           req[key] = value
         end

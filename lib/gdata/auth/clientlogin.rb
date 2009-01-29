@@ -57,13 +57,15 @@ module GData
       # to a previously issued CAPTCHA challenge.
       def get_token(username, password, source, login_token = nil, 
           login_captcha = nil)
-        source = CGI.escape(source)
-        password = CGI.escape(password)
-        username = CGI.escape(username)
-        body = "accountType=#{@account_type}&Email=#{username}" +
-               "&Passwd=#{password}&service=#{@service}&source=#{source}"
+        body = Hash.new
+        body['accountType'] = @account_type
+        body['Email'] = username
+        body['Passwd'] = password
+        body['service'] = @service
+        body['source'] = source
         if login_token and login_captcha
-          body += "&logintoken=#{login_token}&logincaptcha=#{login_captcha}"
+          body['logintoken'] = login_token
+          body['logincaptcha'] = login_captcha
         end
         
         request = GData::HTTP::Request.new(@auth_url, :body => body, 
