@@ -15,36 +15,16 @@
 module GData
   module Client
     
-    # Client class to wrap working with the YouTube API. Sets some 
-    # YouTube-specific options.
-    class YouTube < Base
+    # Client class to wrap working with the Webmaster Tools API.
+    class WebmasterTools < Base
       
       DEFAULT_OPTIONS = {
-        :version => '2',
-        :clientlogin_url => 'https://www.google.com/youtube/accounts/ClientLogin',
-        :clientlogin_service => 'youtube',
-        :authsub_scope => 'http://gdata.youtube.com',
-        :developer_key => nil,
-        :client_id => nil }
-      
-      # The YouTube developer key being used.
-      attr_accessor :developer_key
-      # The YouTube ClientID being used.
-      attr_accessor :client_id
+        :clientlogin_service => 'sitemaps',
+        :authsub_scope => 'http://www.google.com/webmasters/tools/feeds/' }
       
       def initialize(options = {})
         options = DEFAULT_OPTIONS.merge(options)
         super(options)
-      end
-      
-      def prepare_headers
-        if @client_id
-          @headers['X-GData-Client'] = @client_id
-        end
-        if @developer_key
-          @headers['X-GData-Key'] = "key=#{@developer_key}"
-        end
-        super
       end
     end
   end

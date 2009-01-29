@@ -12,7 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'gdata/client/gdata'
+require 'gdata/client/base'
+require 'gdata/client/apps'
+require 'gdata/client/blogger'
+require 'gdata/client/booksearch'
+require 'gdata/client/calendar'
+require 'gdata/client/contacts'
+require 'gdata/client/doclist'
+require 'gdata/client/finance'
+require 'gdata/client/gbase'
+require 'gdata/client/gmail'
+require 'gdata/client/health'
+require 'gdata/client/notebook'
+require 'gdata/client/photos'
+require 'gdata/client/spreadsheets'
+require 'gdata/client/webmaster_tools'
 require 'gdata/client/youtube'
   
 module GData

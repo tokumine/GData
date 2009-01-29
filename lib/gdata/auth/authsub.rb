@@ -40,7 +40,7 @@ module GData
       # AuthSub access token.
       attr_accessor :token
       # Private RSA key used to sign secure requests.
-      attr_accessor :private_key
+      attr_reader :private_key
       
       # Initialize the class with a new token. Optionally pass a private
       # key or custom URLs.

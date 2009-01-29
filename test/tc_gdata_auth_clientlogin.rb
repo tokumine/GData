@@ -34,5 +34,18 @@ class TC_GData_Auth_ClientLogin < Test::Unit::TestCase
     end
   end
   
+  def test_all_clients
+    source = 'GDataUnitTest'
+    GData::Client.constants.each do |const_name|
+      const = GData::Client.const_get(const_name)
+      if const.superclass == GData::Client::Base
+        instance = const.new
+        assert_nothing_raised do
+          instance.clientlogin(self.get_username(), self.get_password(), source)
+        end
+      end
+    end
+  end
+  
   
 end

@@ -25,5 +25,13 @@ class TC_GData_Client_Base < Test::Unit::TestCase
     assert_not_nil(feed, 'feed can not be nil')
   end
   
+  def test_clientlogin_with_service
+    service = GData::Client::Base.new
+    service.clientlogin(self.get_username(), self.get_password(), nil, nil, 
+      'youtube')
+    feed = service.get('http://gdata.youtube.com/feeds/api/users/default/uploads?max-results=1')
+    assert_not_nil(feed, 'feed can not be nil')
+  end
+  
 end
     

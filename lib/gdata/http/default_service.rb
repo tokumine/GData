@@ -55,7 +55,10 @@ module GData
         
         response = Response.new
         response.body = res.body
-        response.headers = res.header.to_hash
+        response.headers = Hash.new
+        res.each do |key, value|
+          response.headers[key] = value
+        end
         response.status_code = res.code.to_i
         return response
       end

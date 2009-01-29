@@ -15,12 +15,19 @@
 require 'rubygems'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
+require 'rake/testtask'
 
 task :default => [:test]
 task :doc => [:rdoc]
 
 task :test do
   ruby "test/ts_gdata.rb"
+end
+
+Rake::TestTask.new("unit_tests") do |t|
+  t.pattern = 'test/ts_gdata.rb'
+  #t.verbose = true
+  #t.warning = true
 end
 
 task :prepdoc do
@@ -50,7 +57,7 @@ spec = Gem::Specification.new do |s|
   s.summary = "Google Data APIs Ruby Utility Library"
   s.rubyforge_project = 'gdata'
   s.name = 'gdata'
-  s.version = '0.0.1'
+  s.version = '0.1.0'
   s.requirements << 'none'
   s.require_path = 'lib'
   s.test_files = FileList['test/ts_gdata.rb']
