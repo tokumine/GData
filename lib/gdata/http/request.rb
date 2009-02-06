@@ -18,11 +18,6 @@ module GData
   
     # Very simple class to hold everything about an HTTP request.
     class Request
-      
-      DEFAULT_OPTIONS = {
-        :body => '',
-        :method => :get,
-        :headers => {} }
     
       # The URL of the request.
       attr_accessor :url
@@ -36,10 +31,12 @@ module GData
       # Only the URL itself is required, everything else is optional.
       def initialize(url, options = {})
         @url = url
-        options = DEFAULT_OPTIONS.merge(options)
         options.each do |key, value|
           self.send("#{key}=", value)
         end
+        
+        @method ||= :get
+        @headers ||= {}
       end
       
       # Returns whether or not a request is chunked.
@@ -62,7 +59,8 @@ module GData
       
       # Calculates and sets the length of the body.
       def calculate_length!
-        if not @headers['Content-Length'] and not chunked?
+        if not @headers['Content-Length'] and not chunked? \
+          and method != :get and method != :delete
           if @body
             @headers['Content-Length'] = @body.length
           else

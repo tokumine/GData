@@ -21,6 +21,7 @@ class TC_GData_Client_YouTube < Test::Unit::TestCase
   
   def setup
     @yt = GData::Client::YouTube.new
+    self.assert(@yt.headers.empty?, 'headers should be empty.')
     @yt.clientlogin(self.get_username(), self.get_password())
     @yt.client_id = 'ytapi-Google-GDataUnitTests-lcqr3u89-1'
     @yt.developer_key = 'AI39si4vwXwDLR5MrtsdR1ULUD8__EnEccla-0bnqV40KpeFDIyCwEv0VJqZKHUsO3MvVM_bXHp3cAr55HmMYMhqfxzLMUgDXA'
@@ -29,7 +30,7 @@ class TC_GData_Client_YouTube < Test::Unit::TestCase
   def test_authenticated_uploads_feed
     
     
-    feed = @yt.get('http://gdata.youtube.com/feeds/api/users/default/uploads?max-results=1')
+    feed = @yt.get('http://gdata.youtube.com/feeds/api/users/default/uploads?max-results=1').to_xml
     self.assert_not_nil(feed, 'feed can not be nil')
   end
   
@@ -43,7 +44,7 @@ class TC_GData_Client_YouTube < Test::Unit::TestCase
     </entry>
     EOF
     
-    response = @yt.post('http://gdata.youtube.com/feeds/api/users/default/favorites', entry)
+    response = @yt.post('http://gdata.youtube.com/feeds/api/users/default/favorites', entry).to_xml
     
     edit_uri = response.elements["link[@rel='edit']"].attributes['href']
     
@@ -60,13 +61,13 @@ class TC_GData_Client_YouTube < Test::Unit::TestCase
     </entry>
     EOF
     
-    response = @yt.post('http://gdata.youtube.com/feeds/api/users/default/playlists', entry)
+    response = @yt.post('http://gdata.youtube.com/feeds/api/users/default/playlists', entry).to_xml
     
     edit_uri = response.elements["link[@rel='edit']"].attributes['href']
     
     response.elements["summary"].text = "Updated description"
     
-    response = @yt.put(edit_uri, response.to_s)
+    response = @yt.put(edit_uri, response.to_s).to_xml
     
     self.assert_equal("Updated description", response.elements["summary"].text)
     

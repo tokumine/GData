@@ -21,11 +21,22 @@ require 'ts_gdata_auth'
 class TS_GData
   def self.suite
     suite = Test::Unit::TestSuite.new("GData Test Suite")
+    suite << UnicodeStringTest.suite
     suite << TS_GData_HTTP.suite
     suite << TS_GData_Client.suite
     suite << TS_GData_Auth.suite
     return suite
   end
 end
+
+class UnicodeStringTest < Test::Unit::TestCase
+  def test_jlength
+    s = "Καλημέρα κόσμε!"
+    assert_equal(15, s.jlength) # Note the 'j'
+    assert_not_equal(15, s.length) # Normal, non unicode length
+    assert_equal(28, s.length) # Greek letters happen to take two-bytes
+  end
+end
+
 
 Test::Unit::UI::Console::TestRunner.run(TS_GData)

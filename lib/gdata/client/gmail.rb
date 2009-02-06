@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the GMail Atom Feed.
     class GMail < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'mail',
-        :authsub_scope => 'https://mail.google.com/mail/feed/atom/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'mail'
+        options[:authsub_scope] ||= 'https://mail.google.com/mail/feed/atom/'
         super(options)
       end
     end

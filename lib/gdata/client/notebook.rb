@@ -17,13 +17,10 @@ module GData
     
     # Client class to wrap working with the Notebook Data API.
     class Notebook < Base
-      
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'notebook',
-        :authsub_scope => 'http://www.google.com/notebook/feeds/' }
-      
+
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'notebook'
+        options[:authsub_scope] ||= 'http://www.google.com/notebook/feeds/'
         super(options)
       end
     end

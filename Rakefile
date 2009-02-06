@@ -18,7 +18,6 @@ require 'rake/rdoctask'
 require 'rake/testtask'
 
 task :default => [:test]
-task :doc => [:rdoc]
 
 task :test do
   ruby "test/ts_gdata.rb"
@@ -31,6 +30,10 @@ Rake::TestTask.new("unit_tests") do |t|
 end
 
 task :prepdoc do
+  all_doc_files = FileList.new('doc/**/*')
+  all_doc_files.each do |file|
+    system "svn add #{file}"
+  end
   doc_files = FileList.new('doc/**/*.html')
   doc_files.each do |file|
     system "svn propset svn:mime-type 'text/html' #{file}"
@@ -41,12 +44,15 @@ task :prepdoc do
   end
 end
 
-
-Rake::RDocTask.new do |rd|
-  rd.main = 'README'
-  rd.rdoc_files.include('README', 'lib/**/*.rb')
-  rd.rdoc_dir = 'doc'
+task :doc do
+  system "rdoc -U --title 'gdata module documentation' -m README README lib/"
 end
+
+#Rake::RDocTask.new do |rd|
+#  rd.main = 'README'
+#  rd.rdoc_files.include('README', 'lib/**/*.rb')
+#  rd.rdoc_dir = 'doc'
+#end
 
 
 spec = Gem::Specification.new do |s|
@@ -57,7 +63,7 @@ spec = Gem::Specification.new do |s|
   s.summary = "Google Data APIs Ruby Utility Library"
   s.rubyforge_project = 'gdata'
   s.name = 'gdata'
-  s.version = '0.1.0'
+  s.version = '1.0.0'
   s.requirements << 'none'
   s.require_path = 'lib'
   s.test_files = FileList['test/ts_gdata.rb']

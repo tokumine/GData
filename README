@@ -12,7 +12,7 @@ Ruby wrapper for working with Google Data APIs
   yt.clientlogin('username', 'password')
   yt.client_id = 'CLIENT_ID'
   yt.developer_key = 'DEVELOPER_KEY'
-  feed = yt.get('http://gdata.youtube.com/feeds/api/users/default/uploads')
+  feed = yt.get('http://gdata.youtube.com/feeds/api/users/default/uploads').to_xml
   
   # creating, updating, and deleting a playlist
   
@@ -24,15 +24,15 @@ Ruby wrapper for working with Google Data APIs
   </entry>
   EOF
   
-  response = yt.post('http://gdata.youtube.com/feeds/api/users/default/playlists', entry)
+  response = yt.post('http://gdata.youtube.com/feeds/api/users/default/playlists', entry).to_xml
   
   edit_uri = response.elements["link[@rel='edit']"].attributes['href']
   
   response.elements["summary"].text = "Updated description"
   
-  response = yt.put(edit_uri, response.to_s)
+  response = yt.put(edit_uri, response.to_s).to_xml
   
-  yt.delete(edit_uri)
+  yt.delete(edit_uri).to_xml
 
 == REQUIREMENTS:
 

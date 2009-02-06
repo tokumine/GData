@@ -19,21 +19,16 @@ module GData
     # YouTube-specific options.
     class YouTube < Base
       
-      DEFAULT_OPTIONS = {
-        :version => '2',
-        :clientlogin_url => 'https://www.google.com/youtube/accounts/ClientLogin',
-        :clientlogin_service => 'youtube',
-        :authsub_scope => 'http://gdata.youtube.com',
-        :developer_key => nil,
-        :client_id => nil }
-      
       # The YouTube developer key being used.
       attr_accessor :developer_key
       # The YouTube ClientID being used.
       attr_accessor :client_id
       
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'youtube'
+        options[:clientlogin_url] ||= 'https://www.google.com/youtube/accounts/ClientLogin'
+        options[:authsub_scope] ||= 'http://gdata.youtube.com'
+        options[:version] ||= '2'
         super(options)
       end
       

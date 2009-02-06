@@ -21,10 +21,6 @@ module GData
     # It can be used with a GData::Client::GData object.
     class ClientLogin
       
-      DEFAULT_OPTIONS = {
-        :auth_url => 'https://www.google.com/accounts/ClientLogin',
-        :account_type => 'HOSTED_OR_GOOGLE' }
-      
       # The ClientLogin authentication handler
       attr_accessor :auth_url
       # One of 'HOSTED_OR_GOOGLE', 'GOOGLE', or 'HOSTED'. 
@@ -45,10 +41,12 @@ module GData
         
         @service = service
         
-        options = DEFAULT_OPTIONS.merge(options)
         options.each do |key, value|
           self.send("#{key}=", value)
         end
+        
+        @auth_url ||= 'https://www.google.com/accounts/ClientLogin'
+        @account_type ||= 'HOSTED_OR_GOOGLE'
       end
       
       # Retrieves a token for the given username and password.

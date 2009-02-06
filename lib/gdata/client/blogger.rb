@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Blogger API.
     class Blogger < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'blogger',
-        :authsub_scope => 'http://www.blogger.com/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'blogger'
+        options[:authsub_scope] ||= 'http://www.blogger.com/feeds/'
         super(options)
       end
     end

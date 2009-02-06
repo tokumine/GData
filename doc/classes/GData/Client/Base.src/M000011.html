@@ -5,14 +5,21 @@
 
 <html>
 <head>
-  <title>authsub_token= (GData::Client::Base)</title>
+  <title>new (GData::Client::Base)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/gdata.rb, line 151</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">authsub_token=</span>(<span class="ruby-identifier">token</span>)
-        <span class="ruby-ivar">@auth_handler</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Auth</span><span class="ruby-operator">::</span><span class="ruby-constant">AuthSub</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">token</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 41</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+        <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{key}=&quot;</span>, <span class="ruby-identifier">value</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-ivar">@headers</span> <span class="ruby-operator">||=</span> {}
+        <span class="ruby-ivar">@http_service</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>
+        <span class="ruby-ivar">@version</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'2'</span>
+        <span class="ruby-ivar">@source</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'AnonymousApp'</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

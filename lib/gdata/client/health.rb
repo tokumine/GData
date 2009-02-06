@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Health API.
     class Health < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'health',
-        :authsub_scope => 'https://www.google.com/health/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'health'
+        options[:authsub_scope] ||= 'https://www.google.com/health/feeds/'
         super(options)
       end
     end

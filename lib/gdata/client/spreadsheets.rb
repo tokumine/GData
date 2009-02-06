@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Spreadsheets API.
     class Spreadsheets < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'wise',
-        :authsub_scope => 'http://spreadsheets.google.com/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'wise'
+        options[:authsub_scope] ||= 'http://spreadsheets.google.com/feeds/'
         super(options)
       end
     end

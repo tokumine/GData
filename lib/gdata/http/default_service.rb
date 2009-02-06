@@ -37,10 +37,8 @@ module GData
           req = Net::HTTP::Get.new(url.request_uri)
         when :put
           req = Net::HTTP::Put.new(url.request_uri)
-          request.calculate_length!
         when :post
           req = Net::HTTP::Post.new(url.request_uri)
-          request.calculate_length!
         when :delete
           req = Net::HTTP::Delete.new(url.request_uri)
         else
@@ -52,12 +50,19 @@ module GData
           req.body = request.body
         when Hash
           req.set_form_data(request.body)
+        when File
+          req.body_stream = request.body
+          request.chunked = true
         else
           req.body = request.body.to_s
         end
+        
         request.headers.each do |key, value|
           req[key] = value
         end
+        
+        request.calculate_length!
+        
         res = http.request(req)
         
         response = Response.new

@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Book Search Data API.
     class BookSearch < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'print',
-        :authsub_scope => 'http://www.google.com/books/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'print'
+        options[:authsub_scope] ||= 'http://www.google.com/books/feeds/'
         super(options)
       end
     end

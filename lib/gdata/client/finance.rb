@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Finance API.
     class Finance < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'finance',
-        :authsub_scope => 'http://finance.google.com/finance/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'finance'
+        options[:authsub_scope] ||= 'http://finance.google.com/finance/feeds/'
         super(options)
       end
     end

@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Documents List Data API.
     class DocList < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'writely',
-        :authsub_scope => 'http://docs.google.com/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'writely'
+        options[:authsub_scope] ||= 'http://docs.google.com/feeds/'
         super(options)
       end
     end

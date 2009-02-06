@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Webmaster Tools API.
     class WebmasterTools < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'sitemaps',
-        :authsub_scope => 'http://www.google.com/webmasters/tools/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'sitemaps'
+        options[:authsub_scope] ||= 'http://www.google.com/webmasters/tools/feeds/'
         super(options)
       end
     end

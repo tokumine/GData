@@ -94,13 +94,13 @@ href="../../GData.html">GData::Client::GData</a> object.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000026">get_url</a>&nbsp;&nbsp;
-      <a href="#M000024">info</a>&nbsp;&nbsp;
-      <a href="#M000020">new</a>&nbsp;&nbsp;
-      <a href="#M000021">private_key=</a>&nbsp;&nbsp;
-      <a href="#M000025">revoke</a>&nbsp;&nbsp;
-      <a href="#M000022">sign_request!</a>&nbsp;&nbsp;
-      <a href="#M000023">upgrade</a>&nbsp;&nbsp;
+      <a href="#M000044">get_url</a>&nbsp;&nbsp;
+      <a href="#M000042">info</a>&nbsp;&nbsp;
+      <a href="#M000038">new</a>&nbsp;&nbsp;
+      <a href="#M000039">private_key=</a>&nbsp;&nbsp;
+      <a href="#M000043">revoke</a>&nbsp;&nbsp;
+      <a href="#M000040">sign_request!</a>&nbsp;&nbsp;
+      <a href="#M000041">upgrade</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,11 +117,6 @@ href="../../GData.html">GData::Client::GData</a> object.
 
       <div class="name-list">
         <table summary="Constants">
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DEFAULT_OPTIONS</td>
-          <td>=</td>
-          <td class="context-item-value">{         :private_key =&gt; nil }</td>
-        </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">REQUEST_HANDLER</td>
           <td>=</td>
@@ -185,7 +180,7 @@ The URL of AuthSubInfo.
         <table>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">private_key</td>
-          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
           <td class="context-item-desc">
 Private RSA key used to sign secure requests.
 
@@ -209,12 +204,12 @@ Private RSA key used to sign secure requests.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000026" class="method-detail">
-        <a name="M000026"></a>
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000026.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000026.html');return false;">
+          <a href="AuthSub.src/M000044.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000044.html');return false;">
           <span class="method-name">get_url</span><span class="method-args">(next_url, scope, secure = false, session = true, domain = nil)</span>
           </a>
         </div>
@@ -229,19 +224,19 @@ domain.
         </div>
       </div>
 
-      <div id="method-M000020" class="method-detail">
-        <a name="M000020"></a>
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000020.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000020.html');return false;">
+          <a href="AuthSub.src/M000038.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000038.html');return false;">
           <span class="method-name">new</span><span class="method-args">(token, options = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Initialize the class with a <a href="AuthSub.html#M000020">new</a> token.
+Initialize the class with a <a href="AuthSub.html#M000038">new</a> token.
 Optionally pass a private key or custom URLs.
 </p>
         </div>
@@ -249,12 +244,12 @@ Optionally pass a private key or custom URLs.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000024" class="method-detail">
-        <a name="M000024"></a>
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000024.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000024.html');return false;">
+          <a href="AuthSub.src/M000042.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000042.html');return false;">
           <span class="method-name">info</span><span class="method-args">()</span>
           </a>
         </div>
@@ -267,12 +262,12 @@ one-time use token, this operation will use it up!
         </div>
       </div>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000021.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000021.html');return false;">
+          <a href="AuthSub.src/M000039.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000039.html');return false;">
           <span class="method-name">private_key=</span><span class="method-args">(key)</span>
           </a>
         </div>
@@ -287,12 +282,12 @@ contains the private key.
         </div>
       </div>
 
-      <div id="method-M000025" class="method-detail">
-        <a name="M000025"></a>
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000025.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000025.html');return false;">
+          <a href="AuthSub.src/M000043.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000043.html');return false;">
           <span class="method-name">revoke</span><span class="method-args">()</span>
           </a>
         </div>
@@ -304,12 +299,12 @@ Revoke the token.
         </div>
       </div>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000022.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000022.html');return false;">
+          <a href="AuthSub.src/M000040.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000040.html');return false;">
           <span class="method-name">sign_request!</span><span class="method-args">(request)</span>
           </a>
         </div>
@@ -322,12 +317,12 @@ href="AuthSub.html">AuthSub</a> Authorization header.
         </div>
       </div>
 
-      <div id="method-M000023" class="method-detail">
-        <a name="M000023"></a>
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
 
         <div class="method-heading">
-          <a href="AuthSub.src/M000023.html" target="Code" class="method-signature"
-            onclick="popupCode('AuthSub.src/M000023.html');return false;">
+          <a href="AuthSub.src/M000041.html" target="Code" class="method-signature"
+            onclick="popupCode('AuthSub.src/M000041.html');return false;">
           <span class="method-name">upgrade</span><span class="method-args">()</span>
           </a>
         </div>

@@ -18,11 +18,8 @@ module GData
     # Client class to wrap working with the Apps Provisioning API.
     class Apps < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'apps' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'apps'
         super(options)
       end
     end

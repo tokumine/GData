@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Google Base API.
     class GBase < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'gbase',
-        :authsub_scope => 'http://www.google.com/base/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'gbase'
+        options[:authsub_scope] ||= 'http://www.google.com/base/feeds/'
         super(options)
       end
     end

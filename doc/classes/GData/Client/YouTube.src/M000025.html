@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (GData::Client::YouTube)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/youtube.rb, line 27</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:clientlogin_service</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'youtube'</span>
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:clientlogin_url</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'https://www.google.com/youtube/accounts/ClientLogin'</span>
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:authsub_scope</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'http://gdata.youtube.com'</span>
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:version</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'2'</span>
+        <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">options</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

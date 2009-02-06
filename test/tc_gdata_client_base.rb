@@ -21,7 +21,7 @@ class TC_GData_Client_Base < Test::Unit::TestCase
   
   def test_simple_gdata_get
     service = GData::Client::Base.new
-    feed = service.get('http://gdata.youtube.com/feeds/base/videos?max-results=1')
+    feed = service.get('http://gdata.youtube.com/feeds/base/videos?max-results=1').to_xml
     assert_not_nil(feed, 'feed can not be nil')
   end
   
@@ -29,7 +29,7 @@ class TC_GData_Client_Base < Test::Unit::TestCase
     service = GData::Client::Base.new
     service.clientlogin(self.get_username(), self.get_password(), nil, nil, 
       'youtube')
-    feed = service.get('http://gdata.youtube.com/feeds/api/users/default/uploads?max-results=1')
+    feed = service.get('http://gdata.youtube.com/feeds/api/users/default/uploads?max-results=1').to_xml
     assert_not_nil(feed, 'feed can not be nil')
   end
   

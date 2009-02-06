@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Contacts API.
     class Contacts < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'cp',
-        :authsub_scope => 'http://www.google.com/m8/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'cp'
+        options[:authsub_scope] ||= 'http://www.google.com/m8/feeds/' 
         super(options)
       end
     end

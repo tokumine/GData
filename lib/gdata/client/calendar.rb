@@ -18,12 +18,9 @@ module GData
     # Client class to wrap working with the Calendar Data API.
     class Calendar < Base
       
-      DEFAULT_OPTIONS = {
-        :clientlogin_service => 'cl',
-        :authsub_scope => 'http://www.google.com/calendar/feeds/' }
-      
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
+        options[:clientlogin_service] ||= 'cl'
+        options[:authsub_scope] ||= 'http://www.google.com/calendar/feeds/'
         super(options)
       end
     end

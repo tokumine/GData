@@ -24,6 +24,18 @@ module GData
       attr_accessor :body
       # The headers of the HTTP response.
       attr_accessor :headers
+      
+      def to_xml
+        if @body
+          begin
+            return REXML::Document.new(@body).root
+          rescue
+            return nil
+          end
+        else
+          return nil
+        end
+      end
     end
   end
 end

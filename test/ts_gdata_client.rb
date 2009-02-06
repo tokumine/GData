@@ -13,12 +13,14 @@
 # limitations under the License.
 
 require 'tc_gdata_client_base'
+require 'tc_gdata_client_photos'
 require 'tc_gdata_client_youtube'
 
 class TS_GData_Client
   def self.suite
     suite = Test::Unit::TestSuite.new
     suite << TC_GData_Client_Base.suite
+    suite << TC_GData_Client_Photos.suite
     suite << TC_GData_Client_YouTube.suite
     return suite
   end

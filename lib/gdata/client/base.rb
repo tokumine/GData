@@ -19,16 +19,6 @@ module GData
     
     # A client object used to interact with different Google Data APIs.
     class Base
-      
-      DEFAULT_OPTIONS = {
-        :auth_handler => nil,
-        :http_service => GData::HTTP::DefaultService,
-        :version => "2",
-        :clientlogin_url => nil,
-        :clientlogin_service => nil,
-        :authsub_scope => nil,
-        :headers => {},
-        :source => 'AnonymousApp' }
     
       # A subclass of GData::Auth that handles authentication signing.
       attr_accessor :auth_handler
@@ -49,13 +39,30 @@ module GData
       attr_accessor :source
       
       def initialize(options = {})
-        options = DEFAULT_OPTIONS.merge(options)
         options.each do |key, value|
           self.send("#{key}=", value)
         end
+        
+        @headers ||= {}
+        @http_service ||= GData::HTTP::DefaultService
+        @version ||= '2'
+        @source ||= 'AnonymousApp'
       end
       
-      # Sends an HTTP request and parses the result with REXML.
+      # Sends an HTTP request with the given file as a stream
+      def make_file_request(method, url, file_path, mime_type)
+        if not File.readable?(file_path)
+          raise ArgumentError, "File #{file_path} is not readable."
+        end
+        file = File.open(file_path, 'rb')
+        @headers['Content-Type'] = mime_type
+        @headers['Slug'] = File.basename(file_path)
+        response = self.make_request(method, url, file)
+        file.close
+        return response
+      end
+      
+      # Sends an HTTP request and return the response.
       def make_request(method, url, body = '')
         headers = self.prepare_headers
         request = GData::HTTP::Request.new(url, :headers => headers, 
@@ -80,21 +87,10 @@ module GData
         when 500
           raise ServerError, response.body
         else
-          raise UnknownError, response.status_code + ' ' + response.body
+          raise UnknownError, "#{response.status_code} #{response.body}"
         end
         
-        if response.body
-          begin
-            document = REXML::Document.new(response.body).root
-            if document.nil?
-              return response.body
-            else
-              return document
-            end
-          rescue
-            return response.body
-          end
-        end
+        return response
       end
       
       # Performs an HTTP GET against the API.
@@ -107,9 +103,19 @@ module GData
         return self.make_request(:put, url, body)
       end
       
+      # Performs an HTTP PUT with the given file
+      def put_file(url, file_path, mime_type)
+        return self.make_file_request(:put, url, file_path, mime_type)
+      end
+      
       # Performs an HTTP POST against the API.
       def post(url, body)
         return self.make_request(:post, url, body)
+      end
+      
+      # Performs an HTTP POST with the given file
+      def post_file(url, file_path, mime_type)
+        return self.make_file_request(:post, url, file_path, mime_type)
       end
       
       # Performs an HTTP DELETE against the API.
@@ -122,7 +128,10 @@ module GData
         headers = @headers
         headers['GData-Version'] = @version
         headers['User-Agent'] = GData::Auth::SOURCE_LIB_STRING + @source
-        headers['Content-Type'] = 'application/atom+xml'
+        # by default we assume we are sending Atom entries
+        if not headers.has_key?('Content-Type')
+          headers['Content-Type'] = 'application/atom+xml'
+        end
         return headers
       end
       

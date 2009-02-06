@@ -23,9 +23,6 @@ module GData
     # It can be used with a GData::Client::GData object.
     class AuthSub
       
-      DEFAULT_OPTIONS = {
-        :private_key => nil }
-      
       # The URL of AuthSubRequest.
       REQUEST_HANDLER = 'https://www.google.com/accounts/AuthSubRequest'
       # The URL of AuthSubSessionToken.
@@ -53,7 +50,6 @@ module GData
         
         @token = token
         
-        options = DEFAULT_OPTIONS.merge(options)
         options.each do |key, value|
           self.send("#{key}=", value)
         end

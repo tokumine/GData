@@ -16,7 +16,7 @@ require 'yaml'
 require 'test/unit'
 require 'test/unit/ui/console/testrunner'
 
-$:.unshift File.join(File.dirname(__FILE__), "..", "lib")
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'gdata'
 
 module TestHelper
