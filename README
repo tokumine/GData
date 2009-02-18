@@ -9,6 +9,7 @@ Ruby wrapper for working with Google Data APIs
 == SYNOPSIS:
 
   yt = GData::Client::YouTube.new
+  yt.source = 'my_cool_application'
   yt.clientlogin('username', 'password')
   yt.client_id = 'CLIENT_ID'
   yt.developer_key = 'DEVELOPER_KEY'
@@ -33,6 +34,31 @@ Ruby wrapper for working with Google Data APIs
   response = yt.put(edit_uri, response.to_s).to_xml
   
   yt.delete(edit_uri).to_xml
+  
+  # uploading a video
+  
+  test_movie = '/Users/jfisher/Pictures/Photo Booth/Movie 3.mov'
+  mime_type = 'video/quicktime'
+  feed = 'http://uploads.gdata.youtube.com/feeds/api/users/default/uploads'
+
+  entry = <<EOF
+  <entry xmlns="http://www.w3.org/2005/Atom"
+    xmlns:media="http://search.yahoo.com/mrss/"
+    xmlns:yt="http://gdata.youtube.com/schemas/2007">
+    <media:group>
+      <media:title type="plain">Test Movie</media:title>
+      <media:description type="plain">
+        This is a test with the Ruby library
+      </media:description>
+      <media:category
+        scheme="http://gdata.youtube.com/schemas/2007/categories.cat">People
+      </media:category>
+      <media:keywords>test,lame</media:keywords>
+    </media:group>
+  </entry>
+  EOF
+   
+  response = @yt.post_file(feed, test_movie, mime_type, entry).to_xml
 
 == REQUIREMENTS:
 

@@ -53,6 +53,9 @@ module GData
         when File
           req.body_stream = request.body
           request.chunked = true
+        when GData::HTTP::MimeBody
+          req.body_stream = request.body
+          request.chunked = true
         else
           req.body = request.body.to_s
         end

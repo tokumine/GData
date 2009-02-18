@@ -13,11 +13,13 @@
 # limitations under the License.
 
 require 'tc_gdata_http_request'
+require 'tc_gdata_http_mime_body'
 
 class TS_GData_HTTP
   def self.suite
     suite = Test::Unit::TestSuite.new
     suite << TC_GData_HTTP_Request.suite
+    suite << TC_GData_HTTP_MimeBody.suite
     return suite
   end
 end

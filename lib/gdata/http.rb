@@ -13,5 +13,6 @@
 # limitations under the License.
 
 require 'gdata/http/default_service'
+require 'gdata/http/mime_body'
 require 'gdata/http/request'
 require 'gdata/http/response'

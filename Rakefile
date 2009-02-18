@@ -23,12 +23,6 @@ task :test do
   ruby "test/ts_gdata.rb"
 end
 
-Rake::TestTask.new("unit_tests") do |t|
-  t.pattern = 'test/ts_gdata.rb'
-  #t.verbose = true
-  #t.warning = true
-end
-
 task :prepdoc do
   all_doc_files = FileList.new('doc/**/*')
   all_doc_files.each do |file|
@@ -47,13 +41,6 @@ end
 task :doc do
   system "rdoc -U --title 'gdata module documentation' -m README README lib/"
 end
-
-#Rake::RDocTask.new do |rd|
-#  rd.main = 'README'
-#  rd.rdoc_files.include('README', 'lib/**/*.rb')
-#  rd.rdoc_dir = 'doc'
-#end
-
 
 spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY

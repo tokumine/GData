@@ -50,14 +50,21 @@ module GData
       end
       
       # Sends an HTTP request with the given file as a stream
-      def make_file_request(method, url, file_path, mime_type)
+      def make_file_request(method, url, file_path, mime_type, entry = nil)
         if not File.readable?(file_path)
           raise ArgumentError, "File #{file_path} is not readable."
         end
         file = File.open(file_path, 'rb')
-        @headers['Content-Type'] = mime_type
         @headers['Slug'] = File.basename(file_path)
-        response = self.make_request(method, url, file)
+        if entry
+          @headers['MIME-Version'] = '1.0'
+          body = GData::HTTP::MimeBody.new(entry, file, mime_type)
+          @headers['Content-Type'] = body.content_type
+          response = self.make_request(method, url, body)
+        else
+          @headers['Content-Type'] = mime_type
+          response = self.make_request(method, url, file)
+        end
         file.close
         return response
       end
@@ -104,8 +111,8 @@ module GData
       end
       
       # Performs an HTTP PUT with the given file
-      def put_file(url, file_path, mime_type)
-        return self.make_file_request(:put, url, file_path, mime_type)
+      def put_file(url, file_path, mime_type, entry = nil)
+        return self.make_file_request(:put, url, file_path, mime_type, entry)
       end
       
       # Performs an HTTP POST against the API.
@@ -114,8 +121,8 @@ module GData
       end
       
       # Performs an HTTP POST with the given file
-      def post_file(url, file_path, mime_type)
-        return self.make_file_request(:post, url, file_path, mime_type)
+      def post_file(url, file_path, mime_type, entry = nil)
+        return self.make_file_request(:post, url, file_path, mime_type, entry)
       end
       
       # Performs an HTTP DELETE against the API.

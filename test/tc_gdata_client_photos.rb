@@ -21,6 +21,7 @@ class TC_GData_Client_Photos < Test::Unit::TestCase
   
   def setup
     @gp = GData::Client::Photos.new
+    @gp.source = 'Ruby Client Unit Tests'
     @gp.clientlogin(self.get_username(), self.get_password())
   end
   
@@ -30,12 +31,32 @@ class TC_GData_Client_Photos < Test::Unit::TestCase
   end
   
   def test_photo_upload
-    
     test_image = File.join(File.dirname(__FILE__), 'testimage.jpg')
     mime_type = 'image/jpeg'
     
     response = @gp.post_file('http://picasaweb.google.com/data/feed/api/user/default/albumid/default', 
       test_image, mime_type).to_xml
+    
+    edit_uri = response.elements["link[@rel='edit']"].attributes['href']
+    
+    @gp.delete(edit_uri)
+  end
+  
+  def test_photo_upload_with_metadata
+    test_image = File.join(File.dirname(__FILE__), 'testimage.jpg')
+    mime_type = 'image/jpeg'
+    
+    entry = <<-EOF
+    <entry xmlns='http://www.w3.org/2005/Atom'>
+      <title>ruby-client-testing.jpg</title>
+      <summary>Test case for Ruby Client Library.</summary>
+      <category scheme="http://schemas.google.com/g/2005#kind"
+        term="http://schemas.google.com/photos/2007#photo"/>
+    </entry>
+    EOF
+    
+    response = @gp.post_file('http://picasaweb.google.com/data/feed/api/user/default/albumid/default', 
+      test_image, mime_type, entry).to_xml
     
     edit_uri = response.elements["link[@rel='edit']"].attributes['href']
     
