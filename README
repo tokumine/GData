@@ -37,7 +37,7 @@ Ruby wrapper for working with Google Data APIs
   
   # uploading a video
   
-  test_movie = '/Users/jfisher/Pictures/Photo Booth/Movie 3.mov'
+  test_movie = '/path/to/a/movie.mov'
   mime_type = 'video/quicktime'
   feed = 'http://uploads.gdata.youtube.com/feeds/api/users/default/uploads'
 
