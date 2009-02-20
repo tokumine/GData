@@ -72,7 +72,7 @@ Tested against Ruby 1.8.6 patch level 114
 
 To generate documentation:
 
-  rake rdoc
+  rake doc
   
 To run unit tests:
   
