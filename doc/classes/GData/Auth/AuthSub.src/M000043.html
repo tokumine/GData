@@ -5,22 +5,24 @@
 
 <html>
 <head>
-  <title>revoke (GData::Auth::AuthSub)</title>
+  <title>new (GData::Auth::AuthSub)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 133</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">revoke</span>
-        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">REVOKE_HANDLER</span>)
-        <span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
-        <span class="ruby-identifier">service</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>.<span class="ruby-identifier">new</span>
-        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">request</span>)
-        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status_code</span> <span class="ruby-operator">!=</span> <span class="ruby-value">200</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span><span class="ruby-operator">::</span><span class="ruby-constant">AuthorizationError</span>, 
-            <span class="ruby-node">&quot;#{response.status_code} : #{response.body}&quot;</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 44</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">token</span>, <span class="ruby-identifier">options</span> = {})
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Token cannot be nil.&quot;</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">String</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Token must be a String.&quot;</span>
         <span class="ruby-keyword kw">end</span>
-
+        
+        <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">token</span>
+        
+        <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{key}=&quot;</span>, <span class="ruby-identifier">value</span>)
+        <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

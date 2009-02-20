@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Class: GData::HTTP::DefaultService</title>
+  <title>Class: GData::HTTP::MimeBody</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
@@ -50,13 +50,13 @@
         <table class="header-table">
         <tr class="top-aligned-row">
           <td><strong>Class</strong></td>
-          <td class="class-name-in-header">GData::HTTP::DefaultService</td>
+          <td class="class-name-in-header">GData::HTTP::MimeBody</td>
         </tr>
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/lib/gdata/http/default_service_rb.html">
-                lib/gdata/http/default_service.rb
+                <a href="../../../files/lib/gdata/http/mime_body_rb.html">
+                lib/gdata/http/mime_body.rb
                 </a>
         <br />
             </td>
@@ -80,9 +80,7 @@
 
     <div id="description">
       <p>
-This is the default implementation of the <a href="../HTTP.html">HTTP</a>
-layer that uses Net::HTTP. You could roll your own if you have different
-requirements or cannot use Net::HTTP for some reason.
+Class acts as a virtual file handle to a MIME multipart message body
 </p>
 
     </div>
@@ -94,7 +92,9 @@ requirements or cannot use Net::HTTP for some reason.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000042">make_request</a>&nbsp;&nbsp;
+      <a href="#M000034">content_type</a>&nbsp;&nbsp;
+      <a href="#M000032">new</a>&nbsp;&nbsp;
+      <a href="#M000033">read</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -109,28 +109,80 @@ requirements or cannot use Net::HTTP for some reason.
 
 
 
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">boundary</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+The MIME boundary being used.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
       
 
 
     <!-- if method_list -->
     <div id="methods">
-      <h3 class="section-bar">Public Instance methods</h3>
+      <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000042" class="method-detail">
-        <a name="M000042"></a>
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
 
         <div class="method-heading">
-          <a href="DefaultService.src/M000042.html" target="Code" class="method-signature"
-            onclick="popupCode('DefaultService.src/M000042.html');return false;">
-          <span class="method-name">make_request</span><span class="method-args">(request)</span>
+          <a href="MimeBody.src/M000032.html" target="Code" class="method-signature"
+            onclick="popupCode('MimeBody.src/M000032.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(entry, file, file_mime_type)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Take a <a href="Request.html">GData::HTTP::Request</a>, execute the
-request, and return a <a href="Response.html">GData::HTTP::Response</a>
-object.
+All fields are required, the entry should be a string and is assumed to be
+XML.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="MimeBody.src/M000034.html" target="Code" class="method-signature"
+            onclick="popupCode('MimeBody.src/M000034.html');return false;">
+          <span class="method-name">content_type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the content type of the message including boundary.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="MimeBody.src/M000033.html" target="Code" class="method-signature"
+            onclick="popupCode('MimeBody.src/M000033.html');return false;">
+          <span class="method-name">read</span><span class="method-args">(bytes_requested)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Implement <a href="MimeBody.html#M000033">read</a> so that this class can
+be treated as a stream.
 </p>
         </div>
       </div>

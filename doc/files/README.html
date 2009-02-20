@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Thu Feb 05 16:00:38 -0800 2009</td>
+      <td>Wed Feb 18 15:07:34 -0800 2009</td>
     </tr>
     </table>
   </div>
@@ -82,6 +82,7 @@ Ruby wrapper for working with Google Data APIs
 <h2>SYNOPSIS:</h2>
 <pre>
   yt = GData::Client::YouTube.new
+  yt.source = 'my_cool_application'
   yt.clientlogin('username', 'password')
   yt.client_id = 'CLIENT_ID'
   yt.developer_key = 'DEVELOPER_KEY'
@@ -106,6 +107,31 @@ Ruby wrapper for working with Google Data APIs
   response = yt.put(edit_uri, response.to_s).to_xml
 
   yt.delete(edit_uri).to_xml
+
+  # uploading a video
+
+  test_movie = '/path/to/a/movie.mov'
+  mime_type = 'video/quicktime'
+  feed = 'http://uploads.gdata.youtube.com/feeds/api/users/default/uploads'
+
+  entry = &lt;&lt;EOF
+  &lt;entry xmlns=&quot;http://www.w3.org/2005/Atom&quot;
+    xmlns:media=&quot;http://search.yahoo.com/mrss/&quot;
+    xmlns:yt=&quot;http://gdata.youtube.com/schemas/2007&quot;&gt;
+    &lt;media:group&gt;
+      &lt;media:title type=&quot;plain&quot;&gt;Test Movie&lt;/media:title&gt;
+      &lt;media:description type=&quot;plain&quot;&gt;
+        This is a test with the Ruby library
+      &lt;/media:description&gt;
+      &lt;media:category
+        scheme=&quot;http://gdata.youtube.com/schemas/2007/categories.cat&quot;&gt;People
+      &lt;/media:category&gt;
+      &lt;media:keywords&gt;test,lame&lt;/media:keywords&gt;
+    &lt;/media:group&gt;
+  &lt;/entry&gt;
+  EOF
+
+  response = @yt.post_file(feed, test_movie, mime_type, entry).to_xml
 </pre>
 <h2>REQUIREMENTS:</h2>
 <ul>
