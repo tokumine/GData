@@ -147,7 +147,7 @@ module GData
         if service.nil?
           service = @clientlogin_service
         end
-        @auth_handler = GData::Auth::ClientLogin.new(service)
+        self.auth_handler = GData::Auth::ClientLogin.new(service)
         if @clientlogin_url
           @auth_handler.auth_url = @clientlogin_url
         end
@@ -165,7 +165,7 @@ module GData
       
       # Sets an AuthSub token for the service.
       def authsub_token=(token)
-        @auth_handler = GData::Auth::AuthSub.new(token)
+        self.auth_handler = GData::Auth::AuthSub.new(token)
       end
       
       # Sets a private key to use with AuthSub requests.

@@ -32,6 +32,7 @@ module GData
         super(options)
       end
       
+      # Custom prepare_headers to include the developer key and clientID
       def prepare_headers
         if @client_id
           @headers['X-GData-Client'] = @client_id
