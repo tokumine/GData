@@ -37,9 +37,9 @@ module GData
       # Overrides make_request to handle 302 redirects with a session cookie.
       def make_request(method, url, body = '', retries = 4)
         response = super(method, url, body)
-        if response.status_code == 302 and retries > 0:
+        if response.status_code == 302 and retries > 0
           @session_cookie = response.headers['set-cookie']
-          return self.make_request(method, response.headers['location'], body, 
+          return self.make_request(method, url, body, 
             retries - 1)
         else
           return response
