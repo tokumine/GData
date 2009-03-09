@@ -47,5 +47,13 @@ class TC_GData_Auth_ClientLogin < Test::Unit::TestCase
     end
   end
   
+  def test_specify_account_type
+    gp = GData::Client::Photos.new
+    gp.source = 'GDataUnitTest'
+    assert_nothing_raised do
+      token = gp.clientlogin(self.get_username(), self.get_password(), nil, nil, nil, 'GOOGLE')
+    end
+  end
+  
   
 end

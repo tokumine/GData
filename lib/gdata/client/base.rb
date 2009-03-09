@@ -140,12 +140,15 @@ module GData
         return headers
       end
       
-      # Performs ClientLogin for the service.
-      def clientlogin(username, password, captcha_token = nil, captcha_answer = nil, service = nil)
+      # Performs ClientLogin for the service. See GData::Auth::ClientLogin
+      # for details.
+      def clientlogin(username, password, captcha_token = nil, 
+        captcha_answer = nil, service = nil, account_type = nil)
         if service.nil?
           service = @clientlogin_service
         end
-        self.auth_handler = GData::Auth::ClientLogin.new(service)
+        options = { :account_type => account_type }
+        self.auth_handler = GData::Auth::ClientLogin.new(service, options)
         if @clientlogin_url
           @auth_handler.auth_url = @clientlogin_url
         end
