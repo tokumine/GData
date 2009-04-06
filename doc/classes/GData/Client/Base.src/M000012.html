@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 53</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 51</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_file_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">file_path</span>, <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">entry</span> = <span class="ruby-keyword kw">nil</span>)
         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file_path</span>)
           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;File #{file_path} is not readable.&quot;</span>

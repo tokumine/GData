@@ -10,12 +10,14 @@
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 146</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clientlogin</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">password</span>, <span class="ruby-identifier">captcha_token</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">captcha_answer</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">service</span> = <span class="ruby-keyword kw">nil</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 145</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clientlogin</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">password</span>, <span class="ruby-identifier">captcha_token</span> = <span class="ruby-keyword kw">nil</span>, 
+        <span class="ruby-identifier">captcha_answer</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">service</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">account_type</span> = <span class="ruby-keyword kw">nil</span>)
         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">service</span>.<span class="ruby-identifier">nil?</span>
           <span class="ruby-identifier">service</span> = <span class="ruby-ivar">@clientlogin_service</span>
         <span class="ruby-keyword kw">end</span>
-        <span class="ruby-ivar">@auth_handler</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Auth</span><span class="ruby-operator">::</span><span class="ruby-constant">ClientLogin</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">service</span>)
+        <span class="ruby-identifier">options</span> = { <span class="ruby-identifier">:account_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">account_type</span> }
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">auth_handler</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Auth</span><span class="ruby-operator">::</span><span class="ruby-constant">ClientLogin</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">service</span>, <span class="ruby-identifier">options</span>)
         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@clientlogin_url</span>
           <span class="ruby-ivar">@auth_handler</span>.<span class="ruby-identifier">auth_url</span> = <span class="ruby-ivar">@clientlogin_url</span>
         <span class="ruby-keyword kw">end</span>

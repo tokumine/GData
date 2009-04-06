@@ -5,14 +5,14 @@
 
 <html>
 <head>
-  <title>upgrade (GData::Auth::AuthSub)</title>
+  <title>info (GData::Auth::AuthSub)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 97</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upgrade</span>
-        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">SESSION_HANDLER</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 114</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">info</span>
+        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">INFO_HANDLER</span>)
         <span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
         <span class="ruby-identifier">service</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>.<span class="ruby-identifier">new</span>
         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">request</span>)
@@ -21,9 +21,12 @@
             <span class="ruby-node">&quot;#{response.status_code} : #{response.body}&quot;</span>
         <span class="ruby-keyword kw">end</span>
         
-        <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Token=(.*)/</span>,<span class="ruby-value">1</span>]
-        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@token</span>
-        
+        <span class="ruby-identifier">result</span> = {}
+        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:target</span>] = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Target=(.*)/</span>,<span class="ruby-value">1</span>]
+        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:scope</span>] = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Scope=(.*)/</span>,<span class="ruby-value">1</span>]
+        <span class="ruby-identifier">result</span>[<span class="ruby-identifier">:secure</span>] = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Secure=(.*)/</span>,<span class="ruby-value">1</span>]
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+       
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

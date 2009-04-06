@@ -50,7 +50,7 @@ spec = Gem::Specification.new do |s|
   s.summary = "Google Data APIs Ruby Utility Library"
   s.rubyforge_project = 'gdata'
   s.name = 'gdata'
-  s.version = '1.0.0'
+  s.version = '1.0.1'
   s.requirements << 'none'
   s.require_path = 'lib'
   s.test_files = FileList['test/ts_gdata.rb']

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>read (GData::HTTP::MimeBody)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/gdata/http/mime_body.rb, line 36</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read</span>(<span class="ruby-identifier">bytes_requested</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@current_part</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@parts</span>.<span class="ruby-identifier">length</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-identifier">buffer</span> = <span class="ruby-ivar">@parts</span>[<span class="ruby-ivar">@current_part</span>].<span class="ruby-identifier">read</span>(<span class="ruby-identifier">bytes_requested</span>)
+        
+        <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">bytes_requested</span>
+          <span class="ruby-ivar">@current_part</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">next_buffer</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">bytes_requested</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">length</span>)
+          <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">next_buffer</span>
+          <span class="ruby-identifier">buffer</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">next_buffer</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">buffer</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
