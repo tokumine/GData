@@ -81,7 +81,7 @@ module GData
               "#{error} : #{url}"
           end
           
-          raise GData::Client::AuthorizationError, "#{error} : #{url}"
+          raise GData::Client::AuthorizationError.new(response)
         end
         
         @token = response.body[/Auth=(.*)/,1]
@@ -92,7 +92,7 @@ module GData
       # object.
       def sign_request!(request)
         if @token == nil
-          raise RuntimeError, "Cannot sign request without credentials"
+          raise GData::Client::Error, "Cannot sign request without credentials"
         end
         
         request.headers['Authorization'] = "GoogleLogin auth=#{@token}" 

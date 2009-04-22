@@ -100,8 +100,7 @@ module GData
         service = GData::HTTP::DefaultService.new
         response = service.make_request(request)
         if response.status_code != 200
-          raise GData::Client::AuthorizationError, 
-            "#{response.status_code} : #{response.body}"
+          raise GData::Client::AuthorizationError.new(response)
         end
         
         @token = response.body[/Token=(.*)/,1]
@@ -117,8 +116,7 @@ module GData
         service = GData::HTTP::DefaultService.new
         response = service.make_request(request)
         if response.status_code != 200
-          raise GData::Client::AuthorizationError, 
-            "#{response.status_code} : #{response.body}"
+          raise GData::Client::AuthorizationError.new(response)
         end
         
         result = {}
@@ -136,8 +134,7 @@ module GData
         service = GData::HTTP::DefaultService.new
         response = service.make_request(request)
         if response.status_code != 200
-          raise GData::Client::AuthorizationError, 
-            "#{response.status_code} : #{response.body}"
+          raise GData::Client::AuthorizationError.new(response)
         end
 
       end

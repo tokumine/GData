@@ -31,10 +31,31 @@ require 'gdata/client/youtube'
   
 module GData
   module Client
-    class AuthorizationError < RuntimeError
+
+    # Base class for GData::Client errors
+    class Error < RuntimeError
+    end
+
+    # Base class for errors raised due to requests
+    class RequestError < Error
+
+      # The Net::HTTPResponse that caused this error.
+      attr_accessor :response
+
+      # Creates a new RequestError from Net::HTTPResponse +response+ with a
+      # message containing the error code and response body.
+      def initialize(response)
+        @response = response
+
+        super "request error #{response.status_code}: #{response.body}"
+      end
+
+    end
+
+    class AuthorizationError < RequestError
     end
     
-    class BadRequestError < RuntimeError
+    class BadRequestError < RequestError
     end
     
     # An error caused by ClientLogin issuing a CAPTCHA error.
@@ -50,13 +71,13 @@ module GData
       end
     end
     
-    class ServerError < RuntimeError
+    class ServerError < RequestError
     end
     
-    class UnknownError < RuntimeError
+    class UnknownError < RequestError
     end
     
-    class VersionConflictError < RuntimeError
+    class VersionConflictError < RequestError
     end  
     
   end

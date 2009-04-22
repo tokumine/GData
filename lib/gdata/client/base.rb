@@ -84,15 +84,15 @@ module GData
         when 200, 201, 302
           #Do nothing, it's a success.
         when 401, 403
-          raise AuthorizationError, response.body
+          raise AuthorizationError.new(response)
         when 400
           raise BadRequestError, response.body
         when 409
-          raise VersionConflictError, response.body
+          raise VersionConflictError.new(response)
         when 500
-          raise ServerError, response.body
+          raise ServerError.new(response)
         else
-          raise UnknownError, "#{response.status_code} #{response.body}"
+          raise UnknownError.new(response)
         end
         
         return response
@@ -174,7 +174,7 @@ module GData
         if @auth_handler.class == GData::Auth::AuthSub
           @auth_handler.private_key = key
         else
-          raise RuntimeError, "An AuthSub token must be set first."
+          raise Error, "An AuthSub token must be set first."
         end
       end
     end

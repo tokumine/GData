@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'gdata/client'
+
 module GData
   module HTTP
   
@@ -31,7 +33,7 @@ module GData
           begin
             return REXML::Document.new(@body).root
           rescue
-            raise RuntimeError, "Response body not XML."
+            raise GData::Client::Error, "Response body not XML."
           end
         else
           return nil
