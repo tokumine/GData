@@ -5,24 +5,23 @@
 
 <html>
 <head>
-  <title>private_key= (GData::Auth::AuthSub)</title>
+  <title>new (GData::Auth::AuthSub)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 62</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">private_key=</span>(<span class="ruby-identifier">key</span>)
-        <span class="ruby-keyword kw">begin</span>
-          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>
-            <span class="ruby-ivar">@private_key</span> = <span class="ruby-identifier">key</span>
-          <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">key</span>)
-            <span class="ruby-identifier">key_from_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>)
-            <span class="ruby-ivar">@private_key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key_from_file</span>)
-          <span class="ruby-keyword kw">else</span>
-            <span class="ruby-ivar">@private_key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>)
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">rescue</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Not a valid private key.&quot;</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/authsub.rb, line 44</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">token</span>, <span class="ruby-identifier">options</span> = {})
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Token cannot be nil.&quot;</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">String</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Token must be a String.&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">token</span>
+        
+        <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{key}=&quot;</span>, <span class="ruby-identifier">value</span>)
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>

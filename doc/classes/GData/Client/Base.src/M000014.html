@@ -5,14 +5,40 @@
 
 <html>
 <head>
-  <title>get (GData::Client::Base)</title>
+  <title>make_request (GData::Client::Base)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 102</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">url</span>)
-        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">:get</span>, <span class="ruby-identifier">url</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 71</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">body</span> = <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">headers</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">prepare_headers</span>
+        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">headers</span>, 
+          <span class="ruby-identifier">:method</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">method</span>, <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>)
+        
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@auth_handler</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@auth_handler</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:sign_request!</span>)
+          <span class="ruby-ivar">@auth_handler</span>.<span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">service</span> = <span class="ruby-identifier">http_service</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">request</span>)
+        
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status_code</span>  
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">200</span>, <span class="ruby-value">201</span>, <span class="ruby-value">302</span>
+          <span class="ruby-comment cmt">#Do nothing, it's a success.</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">401</span>, <span class="ruby-value">403</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">AuthorizationError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">400</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">BadRequestError</span>, <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">409</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">VersionConflictError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value">500</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ServerError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

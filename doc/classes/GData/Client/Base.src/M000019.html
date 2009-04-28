@@ -5,14 +5,14 @@
 
 <html>
 <head>
-  <title>delete (GData::Client::Base)</title>
+  <title>post_file (GData::Client::Base)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 127</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">url</span>)
-        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">:delete</span>, <span class="ruby-identifier">url</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 122</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_file</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">file_path</span>, <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">entry</span> = <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">make_file_request</span>(<span class="ruby-identifier">:post</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">file_path</span>, <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">entry</span>)
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

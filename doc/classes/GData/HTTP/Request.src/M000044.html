@@ -5,20 +5,17 @@
 
 <html>
 <head>
-  <title>calculate_length! (GData::HTTP::Request)</title>
+  <title>chunked= (GData::HTTP::Request)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/http/request.rb, line 62</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calculate_length!</span>
-        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Content-Length'</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">chunked?</span> \
-          <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:get</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:delete</span>
-          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@body</span>
-            <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Content-Length'</span>] = <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">length</span>
-          <span class="ruby-keyword kw">else</span>
-            <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Content-Length'</span>] = <span class="ruby-value">0</span>
-          <span class="ruby-keyword kw">end</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/http/request.rb, line 53</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">chunked=</span>(<span class="ruby-identifier">enabled</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">enabled</span>
+          <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Transfer-Encoding'</span>] = <span class="ruby-value str">'chunked'</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-ivar">@headers</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'Transfer-Encoding'</span>)
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>

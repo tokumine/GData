@@ -5,18 +5,45 @@
 
 <html>
 <head>
-  <title>sign_request! (GData::Auth::ClientLogin)</title>
+  <title>get_token (GData::Auth::ClientLogin)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/clientlogin.rb, line 93</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_request!</span>(<span class="ruby-identifier">request</span>)
-        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@token</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;Cannot sign request without credentials&quot;</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/auth/clientlogin.rb, line 56</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_token</span>(<span class="ruby-identifier">username</span>, <span class="ruby-identifier">password</span>, <span class="ruby-identifier">source</span>, <span class="ruby-identifier">login_token</span> = <span class="ruby-keyword kw">nil</span>, 
+          <span class="ruby-identifier">login_captcha</span> = <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">body</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">body</span>[<span class="ruby-value str">'accountType'</span>] = <span class="ruby-ivar">@account_type</span>
+        <span class="ruby-identifier">body</span>[<span class="ruby-value str">'Email'</span>] = <span class="ruby-identifier">username</span>
+        <span class="ruby-identifier">body</span>[<span class="ruby-value str">'Passwd'</span>] = <span class="ruby-identifier">password</span>
+        <span class="ruby-identifier">body</span>[<span class="ruby-value str">'service'</span>] = <span class="ruby-ivar">@service</span>
+        <span class="ruby-identifier">body</span>[<span class="ruby-value str">'source'</span>] = <span class="ruby-identifier">source</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">login_token</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">login_captcha</span>
+          <span class="ruby-identifier">body</span>[<span class="ruby-value str">'logintoken'</span>] = <span class="ruby-identifier">login_token</span>
+          <span class="ruby-identifier">body</span>[<span class="ruby-value str">'logincaptcha'</span>] = <span class="ruby-identifier">login_captcha</span>
         <span class="ruby-keyword kw">end</span>
         
-        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">'Authorization'</span>] = <span class="ruby-node">&quot;GoogleLogin auth=#{@token}&quot;</span> 
+        <span class="ruby-identifier">request</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@auth_url</span>, <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>, 
+          <span class="ruby-identifier">:method</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:post</span>)
+        <span class="ruby-identifier">service</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status_code</span> <span class="ruby-operator">!=</span> <span class="ruby-value">200</span>
+          <span class="ruby-identifier">url</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Url=(.*)/</span>,<span class="ruby-value">1</span>]
+          <span class="ruby-identifier">error</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Error=(.*)/</span>,<span class="ruby-value">1</span>]
+          
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">error</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;CaptchaRequired&quot;</span>
+            <span class="ruby-identifier">captcha_token</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/CaptchaToken=(.*)/</span>,<span class="ruby-value">1</span>]
+            <span class="ruby-identifier">captcha_url</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/CaptchaUrl=(.*)/</span>,<span class="ruby-value">1</span>]
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span><span class="ruby-operator">::</span><span class="ruby-constant">CaptchaError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">captcha_token</span>, <span class="ruby-identifier">captcha_url</span>), 
+              <span class="ruby-node">&quot;#{error} : #{url}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span><span class="ruby-operator">::</span><span class="ruby-constant">AuthorizationError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>[<span class="ruby-regexp re">/Auth=(.*)/</span>,<span class="ruby-value">1</span>]
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@token</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

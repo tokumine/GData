@@ -5,15 +5,16 @@
 
 <html>
 <head>
-  <title>auth_handler= (GData::Client::Calendar)</title>
+  <title>new (GData::Client::Calendar)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/calendar.rb, line 32</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auth_handler=</span>(<span class="ruby-identifier">handler</span>)
-        <span class="ruby-ivar">@session_cookie</span> = <span class="ruby-keyword kw">nil</span>
-        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">handler</span>)
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/calendar.rb, line 24</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:clientlogin_service</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'cl'</span>
+        <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:authsub_scope</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">'http://www.google.com/calendar/feeds/'</span>
+        <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">options</span>)
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

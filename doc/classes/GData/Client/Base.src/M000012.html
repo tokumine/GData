@@ -5,29 +5,21 @@
 
 <html>
 <head>
-  <title>make_file_request (GData::Client::Base)</title>
+  <title>new (GData::Client::Base)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 51</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_file_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">file_path</span>, <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">entry</span> = <span class="ruby-keyword kw">nil</span>)
-        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file_path</span>)
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;File #{file_path} is not readable.&quot;</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/client/base.rb, line 39</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+        <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{key}=&quot;</span>, <span class="ruby-identifier">value</span>)
         <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file_path</span>, <span class="ruby-value str">'rb'</span>)
-        <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Slug'</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file_path</span>)
-        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">entry</span>
-          <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'MIME-Version'</span>] = <span class="ruby-value str">'1.0'</span>
-          <span class="ruby-identifier">body</span> = <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">MimeBody</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">mime_type</span>)
-          <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Content-Type'</span>] = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">content_type</span>
-          <span class="ruby-identifier">response</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">body</span>)
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'Content-Type'</span>] = <span class="ruby-identifier">mime_type</span>
-          <span class="ruby-identifier">response</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">make_request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">file</span>)
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">file</span>.<span class="ruby-identifier">close</span>
-        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
+        
+        <span class="ruby-ivar">@headers</span> <span class="ruby-operator">||=</span> {}
+        <span class="ruby-ivar">@http_service</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">GData</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">DefaultService</span>
+        <span class="ruby-ivar">@version</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'2'</span>
+        <span class="ruby-ivar">@source</span> <span class="ruby-operator">||=</span> <span class="ruby-value str">'AnonymousApp'</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>

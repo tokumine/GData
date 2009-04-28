@@ -5,23 +5,15 @@
 
 <html>
 <head>
-  <title>read (GData::HTTP::MimeBodyString)</title>
+  <title>new (GData::HTTP::MimeBodyString)</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
 </head>
 <body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File lib/gdata/http/mime_body.rb, line 81</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read</span>(<span class="ruby-identifier">bytes_requested</span>)
-        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@bytes_read</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@string</span>.<span class="ruby-identifier">length</span>
-          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
-        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">bytes_requested</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@string</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@bytes_read</span>
-          <span class="ruby-identifier">bytes_requested</span> = <span class="ruby-ivar">@string</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@bytes_read</span>
-        <span class="ruby-keyword kw">end</span>
-        
-        <span class="ruby-identifier">buffer</span> = <span class="ruby-ivar">@string</span>[<span class="ruby-ivar">@bytes_read</span>, <span class="ruby-identifier">bytes_requested</span>]
-        <span class="ruby-ivar">@bytes_read</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">bytes_requested</span>
-        
-        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">buffer</span>
+  <pre><span class="ruby-comment cmt"># File lib/gdata/http/mime_body.rb, line 75</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">source_string</span>)
+        <span class="ruby-ivar">@string</span> = <span class="ruby-identifier">source_string</span>
+        <span class="ruby-ivar">@bytes_read</span> = <span class="ruby-value">0</span>
       <span class="ruby-keyword kw">end</span></pre>
 </body>
 </html>
