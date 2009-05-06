@@ -86,7 +86,7 @@ module GData
         when 401, 403
           raise AuthorizationError.new(response)
         when 400
-          raise BadRequestError, response.body
+          raise BadRequestError.new(response)
         when 409
           raise VersionConflictError.new(response)
         when 500
