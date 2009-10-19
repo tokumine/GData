@@ -62,7 +62,7 @@ module GData
         wrapped_entry = "--#{@boundary}\r\n"
         wrapped_entry += "Content-Type: application/atom+xml\r\n\r\n"
         wrapped_entry += entry
-        wrapped_entry += "--#{@boundary}\r\n"
+        wrapped_entry += "\r\n--#{@boundary}\r\n"
         wrapped_entry += "Content-Type: #{file_mime_type}\r\n\r\n"
         return MimeBodyString.new(wrapped_entry)
       end
