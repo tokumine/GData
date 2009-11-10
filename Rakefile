@@ -26,15 +26,7 @@ end
 task :prepdoc do
   all_doc_files = FileList.new('doc/**/*')
   all_doc_files.each do |file|
-    system "svn add #{file}"
-  end
-  doc_files = FileList.new('doc/**/*.html')
-  doc_files.each do |file|
-    system "svn propset svn:mime-type 'text/html' #{file}"
-  end
-  css_files = FileList.new('doc/**/*.css')
-  css_files.each do |file|
-    system "svn propset svn:mime-type 'text/css' #{file}"
+    system "hg add #{file}"
   end
 end
 
@@ -50,7 +42,7 @@ spec = Gem::Specification.new do |s|
   s.summary = "Google Data APIs Ruby Utility Library"
   s.rubyforge_project = 'gdata'
   s.name = 'gdata'
-  s.version = '1.1.0'
+  s.version = '1.1.1'
   s.requirements << 'none'
   s.require_path = 'lib'
   s.test_files = FileList['test/ts_gdata.rb']
