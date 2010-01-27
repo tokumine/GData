@@ -17,6 +17,8 @@ $:.unshift(File.dirname(__FILE__))
 require 'gdata/http'
 require 'gdata/client'
 require 'gdata/auth'
-# This is for Unicode "support"
-require 'jcode'
-$KCODE = 'UTF8'
+if RUBY_VERSION < '1.9'
+  # This is for Unicode "support" in Ruby 1.8
+  $KCODE = 'UTF8'
+  require 'jcode'
+end
