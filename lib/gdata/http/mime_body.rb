@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # Copyright (C) 2008 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,10 +80,15 @@ module GData
       
       # Implement read so that this class can be treated as a stream.
       def read(bytes_requested)
-        if @bytes_read == @string.length
+        if RUBY_VERSION < '1.9'
+          max_bytes = @string.length
+        else
+          max_bytes = @string.bytesize
+        end
+        if @bytes_read == max_bytes
           return false
-        elsif bytes_requested > @string.length - @bytes_read
-          bytes_requested = @string.length - @bytes_read
+        elsif bytes_requested > max_bytes - @bytes_read
+          bytes_requested = max_bytes - @bytes_read
         end
         
         buffer = @string[@bytes_read, bytes_requested]
