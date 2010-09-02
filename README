@@ -68,7 +68,7 @@ Tested against Ruby 1.8.6 patch level 114
 
 == INSTALL:
 
-  sudo gem install gdata
+  sudo gem install gdata_19
 
 To generate documentation:
 
