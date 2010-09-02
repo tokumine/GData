@@ -66,7 +66,7 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "gdata19"
+    gemspec.name = "gdata_19"
     gemspec.summary = "Google Data APIs Ruby Utility Library"
     gemspec.description = "This gem provides a set of wrappers designed to make it easy to work with 
     the Google Data APIs with 1.9 compat"
