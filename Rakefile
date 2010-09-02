@@ -62,3 +62,21 @@ Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
 end
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "gdata19"
+    gemspec.summary = "Google Data APIs Ruby Utility Library"
+    gemspec.description = "This gem provides a set of wrappers designed to make it easy to work with 
+    the Google Data APIs with 1.9 compat"
+    gemspec.has_rdoc = true
+    gemspec.email = "jfisher@youtube.com"
+    gemspec.homepage = "http://github.com/tokumine/GData"
+    gemspec.authors = ["Jeff Fisher"]
+    gemspec.test_files = FileList['test/ts_gdata.rb']
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: gem install jeweler"
+end
+
