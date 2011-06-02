@@ -13,8 +13,17 @@
 # limitations under the License.
 
 require 'rubygems'
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
+
+if RUBY_VERSION > '1.9.1'
+  require 'rubygems/package_task'
+  require 'rdoc/task'
+elsif RUBY_VERSION > '1.9'
+  require 'rubygems/package_task'
+else
+  require 'rake/gempackagetask'
+  require 'rake/rdoctask'
+end
+
 require 'rake/testtask'
 
 task :default => [:test]
@@ -58,7 +67,7 @@ the Google Data APIs.
 EOF
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
 end
