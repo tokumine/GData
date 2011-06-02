@@ -30,7 +30,10 @@ class TC_GData_HTTP_Request < Test::Unit::TestCase
     
     response = service.make_request(request)
     
-    assert_equal(200, response.status_code)
+    # Google responds with 302 temporary redirect if 
+    # client IP address is not in the US
+    # http://www.google.com/support/websearch/bin/answer.py?answer=873
+    assert [200, 302].include?(response.status_code)
   end
     
 end

@@ -45,4 +45,4 @@ class UnicodeStringTest < Test::Unit::TestCase
 end
 
 
-Test::Unit::UI::Console::TestRunner.run(TS_GData)
+#Test::Unit::UI::Console::TestRunner.run(TS_GData)
