@@ -256,6 +256,7 @@ Gem::Specification.new do |s|
      "lib/gdata/http/request.rb",
      "lib/gdata/http/response.rb",
      "pkg/gdata_19-1.1.2.gem",
+     "pkg/gdata_19-1.1.3.gem",
      "test/tc_gdata_auth_authsub.rb",
      "test/tc_gdata_auth_clientlogin.rb",
      "test/tc_gdata_client_base.rb",
