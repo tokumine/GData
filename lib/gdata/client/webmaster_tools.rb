@@ -21,7 +21,7 @@ module GData
       
       def initialize(options = {})
         options[:clientlogin_service] ||= 'sitemaps'
-        options[:authsub_scope] ||= 'http://www.google.com/webmasters/tools/feeds/'
+        options[:authsub_scope] ||= 'https://www.google.com/webmasters/tools/feeds/'
         super(options)
       end
     end

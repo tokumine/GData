@@ -21,7 +21,7 @@ module GData
       
       def initialize(options = {})
         options[:clientlogin_service] ||= 'lh2'
-        options[:authsub_scope] ||= 'http://picasaweb.google.com/data/'
+        options[:authsub_scope] ||= 'https://picasaweb.google.com/data/'
         options[:version] ||= '1'
         super(options)
       end

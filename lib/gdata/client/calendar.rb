@@ -24,7 +24,7 @@ module GData
       
       def initialize(options = {})
         options[:clientlogin_service] ||= 'cl'
-        options[:authsub_scope] ||= 'http://www.google.com/calendar/feeds/'
+        options[:authsub_scope] ||= 'https://www.google.com/calendar/feeds/'
         super(options)
       end
       

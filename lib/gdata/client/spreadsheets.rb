@@ -21,7 +21,7 @@ module GData
       
       def initialize(options = {})
         options[:clientlogin_service] ||= 'wise'
-        options[:authsub_scope] ||= 'http://spreadsheets.google.com/feeds/'
+        options[:authsub_scope] ||= 'https://spreadsheets.google.com/feeds/'
         super(options)
       end
     end

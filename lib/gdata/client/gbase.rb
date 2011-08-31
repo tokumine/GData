@@ -21,7 +21,7 @@ module GData
       
       def initialize(options = {})
         options[:clientlogin_service] ||= 'gbase'
-        options[:authsub_scope] ||= 'http://www.google.com/base/feeds/'
+        options[:authsub_scope] ||= 'https://www.google.com/base/feeds/'
         super(options)
       end
     end
