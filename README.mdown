@@ -1,4 +1,4 @@
-# GData
+# GData (Ruby 1.9.2 compatible)
 
 * http://code.google.com/p/gdata
 
@@ -70,7 +70,7 @@ response = @yt.post_file(feed, test_movie, mime_type, entry).to_xml
 
 * A sunny disposition
 
-Tested against Ruby 1.8.6 patch level 114
+Tested against Ruby 1.8.6 patch level 114 and 1.9.2p290
 
 ## INSTALL:
 
