@@ -13,8 +13,15 @@
 # limitations under the License.
 
 require 'yaml'
-require 'test/unit'
-require 'test/unit/ui/console/testrunner'
+
+# Test::Unit is no longer in standard lib
+if RUBY_VERSION >= '1.9.1'
+  require 'rubygems'
+  require 'test/unit' # gem install test-unit
+else
+  require 'test/unit'
+  require 'test/unit/ui/console/testrunner'
+end
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'gdata'
