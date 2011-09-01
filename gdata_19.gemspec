@@ -11,8 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Jeff Fisher"]
   s.date = %q{2011-08-31}
   s.default_executable = %q{test_captcha.rb}
-  s.description = %q{This gem provides a set of wrappers designed to make it easy to work with 
-    the Google Data APIs with 1.9 compat}
+  s.description = %q{Ruby 1.9.x compatible Google GData gem makes it easy to work with the Google Data APIs}
   s.email = %q{jfisher@youtube.com}
   s.executables = ["test_captcha.rb"]
   s.extra_rdoc_files = [
