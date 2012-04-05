@@ -15,6 +15,7 @@
 
 require 'gdata/client/base'
 require 'gdata/client/apps'
+require 'gdata/client/analytics'
 require 'gdata/client/blogger'
 require 'gdata/client/booksearch'
 require 'gdata/client/calendar'
