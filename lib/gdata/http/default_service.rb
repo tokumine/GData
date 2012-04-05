@@ -29,7 +29,8 @@ module GData
       # GData::HTTP::Response object.
       def make_request(request)
         url = URI.parse(request.url)
-        http = Net::HTTP.new(url.host, url.port)
+        proxy = URI::parse((url.scheme == 'https' ? ENV['https_proxy'] : ENV['http_proxy']) || '')
+        http = Net::HTTP.new(url.host, url.port, proxy.host, proxy.port)
         http.use_ssl = (url.scheme == 'https')
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         
