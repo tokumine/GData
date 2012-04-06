@@ -50,10 +50,10 @@ module GData
       
       # Sends an HTTP request with the given file as a stream
       def make_file_request(method, url, file_path, mime_type, entry = nil)
-        if not File.readable?(file_path)
+        if not File.readable?(open(file_path))
           raise ArgumentError, "File #{file_path} is not readable."
         end
-        file = File.open(file_path, 'rb')
+        file = File.open(open(file_path), 'rb')
         @headers['Slug'] = File.basename(file_path)
         if entry
           @headers['MIME-Version'] = '1.0'
