@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Fisher"]
-  s.date = %q{2011-08-31}
+  s.date = %q{2012-04-06}
   s.default_executable = %q{test_captcha.rb}
   s.description = %q{Ruby 1.9.x compatible Google GData gem makes it easy to work with the Google Data APIs}
   s.email = %q{jfisher@youtube.com}
