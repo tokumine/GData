@@ -233,6 +233,7 @@ Gem::Specification.new do |s|
     "lib/gdata/auth/authsub.rb",
     "lib/gdata/auth/clientlogin.rb",
     "lib/gdata/client.rb",
+    "lib/gdata/client/analytics.rb",
     "lib/gdata/client/apps.rb",
     "lib/gdata/client/base.rb",
     "lib/gdata/client/blogger.rb",
