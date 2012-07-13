@@ -72,7 +72,7 @@ module GData
       def make_request(method, url, body = '')
         headers = self.prepare_headers
         request = GData::HTTP::Request.new(url, :headers => headers, 
-          :method => method, :body => body)
+          :method => method, :body => body, :secure => true )
         
         if @auth_handler and @auth_handler.respond_to?(:sign_request!)
           @auth_handler.sign_request!(request)
